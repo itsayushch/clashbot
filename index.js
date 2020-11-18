@@ -34,4 +34,4 @@ const loadCommands = () => {
     }
 }
 
-client.login(processe.env.TOKEN);
+client.login(process.env.TOKEN);
