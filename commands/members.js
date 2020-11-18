@@ -19,7 +19,7 @@ module.exports = {
                 .setAuthor(`${clan.name} (${clan.tag}) ~ ${clan.members}/50`, clan.badgeUrls.small);
             message.channel.send(embed);
         } else {
-            const msg = await message.util.send({
+            const msg = await message.channel.send({
                 embed: embed.setColor(0x2AC1F2)
                     .setDescription(mem1.map(m => `${emoji[m.league.id]} \`${m.tag.padEnd(10, ' ')} ${m.name.padEnd(15, ' ')}\``)).setAuthor(`${clan.name} (${clan.tag}) ~ ${clan.members}/50`, clan.badgeUrls.small)
                     .setFooter('Page 1/2')

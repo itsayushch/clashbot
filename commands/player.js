@@ -11,16 +11,16 @@ module.exports = {
             .setAuthor(`${data.name} - ${data.tag.toUpperCase()}`)
             .setTitle('Open In-Game')
             .setURL(`https://link.clashofclans.com/en?action=OpenPlayerProfile&tag=${data.tag.replace(/#/g, '')}`)
-            .setThumbnail(`https://coc.guide/static/imgs/other/town-hall-${data.townHallLevel}.png`)
+            .setThumbnail(data.league ? data.league.iconUrls.large : 'https://cdn.discordapp.com/emojis/696307595924996107.png?v=1')
             .setColor(0x38b6ff)
             .addField('XP Level', `<:xp:715893810521047142> ${data.expLevel}`, true)
             .addField('Best Trophies', `<:trophy__:534753357399588874> ${data.bestTrophies}`, true)
             .addField('Trophies', `<:trophy__:534753357399588874> ${data.trophies}`, true)
             .addField('War Stars', `<:warstars_:534759020309774337> ${data.warStars}`, true)
             .addField('Attacks Won', `<:yes:705748854703783989> ${data.attackWins}`, true)
-            .addField('Town Hall', th[data.townHallLevel], true)
-            .addField('Clan', data.clan ? `${membership[data.role]} of **${data.clan.name}** [${data.clan.tag}](https://link.clashofclans.com/en?action=OpenClanProfile&tag=${data.clan.tag.replace(/#/g, '')})` : '**Not In A Clan**', false)
-            .addField('Builder Hall', data.builderHallLevel ? `${bh[data.builderHallLevel]} ${data.builderHallLevel}` : 'None', true)
+            .addField('Town Hall', data.townHallLevel, true)
+            .addField('Clan', data.clan ? `${this.membership[data.role]} of **${data.clan.name}** [${data.clan.tag}](https://link.clashofclans.com/en?action=OpenClanProfile&tag=${data.clan.tag.replace(/#/g, '')})` : '**Not In A Clan**', false)
+            .addField('Builder Hall', data.builderHallLevel ? `${data.builderHallLevel}` : 'None', true)
             .addField('Versus Trophies', `${data.versusTrophies}`, true)
             .addField('Best Versus Trophies', `${data.bestVersusTrophies}`, true)
             .addField('Versus Battle Wins', `${data.versusBattleWins}`, true)
@@ -28,5 +28,11 @@ module.exports = {
             .addField('Donations Received', `${data.donationsReceived}`, true);
 
         return message.channel.send({ embed });
+    },
+    membership = {
+        'admin': 'Elder',
+        'coLeader': 'Co-Leader',
+        'leader': 'Leader <:Leader:704734343511277674>',
+        'member': 'Member'
     }
 }
