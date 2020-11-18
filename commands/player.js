@@ -7,6 +7,13 @@ module.exports = {
         const data = await client.coc.player(args[0]);
         if (!data.ok) return message.channel.send(data.reason);
 
+        const membership = {
+            'admin': 'Elder',
+            'coLeader': 'Co-Leader',
+            'leader': 'Leader <:Leader:704734343511277674>',
+            'member': 'Member'
+        }
+
         const embed = new MessageEmbed()
             .setAuthor(`${data.name} - ${data.tag.toUpperCase()}`)
             .setTitle('Open In-Game')
@@ -19,7 +26,7 @@ module.exports = {
             .addField('War Stars', `<:warstars_:534759020309774337> ${data.warStars}`, true)
             .addField('Attacks Won', `<:yes:705748854703783989> ${data.attackWins}`, true)
             .addField('Town Hall', data.townHallLevel, true)
-            .addField('Clan', data.clan ? `${this.membership[data.role]} of **${data.clan.name}** [${data.clan.tag}](https://link.clashofclans.com/en?action=OpenClanProfile&tag=${data.clan.tag.replace(/#/g, '')})` : '**Not In A Clan**', false)
+            .addField('Clan', data.clan ? `${membership[data.role]} of **${data.clan.name}** [${data.clan.tag}](https://link.clashofclans.com/en?action=OpenClanProfile&tag=${data.clan.tag.replace(/#/g, '')})` : '**Not In A Clan**', false)
             .addField('Builder Hall', data.builderHallLevel ? `${data.builderHallLevel}` : 'None', true)
             .addField('Versus Trophies', `${data.versusTrophies}`, true)
             .addField('Best Versus Trophies', `${data.bestVersusTrophies}`, true)
@@ -28,11 +35,5 @@ module.exports = {
             .addField('Donations Received', `${data.donationsReceived}`, true);
 
         return message.channel.send({ embed });
-    },
-    membership = {
-        'admin': 'Elder',
-        'coLeader': 'Co-Leader',
-        'leader': 'Leader <:Leader:704734343511277674>',
-        'member': 'Member'
     }
 }
